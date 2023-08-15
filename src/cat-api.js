@@ -12,7 +12,9 @@ export function fetchBreeds() {
             }
             return response.data;
         })
-        .catch(console.warn);
+        .catch(error => {
+            return error;
+        });
 };
 
 export function fetchCatByBreed(breedId) {
@@ -25,7 +27,9 @@ export function fetchCatByBreed(breedId) {
             // console.log(response.data[0]);
             return response.data[0];
         })
-        .catch(console.warn);
+        .catch(error => {
+            return error;
+        });
 }
 
 
