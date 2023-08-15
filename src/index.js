@@ -38,7 +38,7 @@ function getInformationAbouCat(event) {
 
     fetchCatByBreed(event.target.value)
         .then(catInfo => {
-            // console.log(catInfo.url);
+            console.log(catInfo.url);
             let { name, description, temperament } = catInfo.breeds[0];
             let { src } = catInfo.url;
 
