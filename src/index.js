@@ -1,4 +1,4 @@
-// import SlimSelect from 'slim-select';
+import SlimSelect from 'slim-select';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { fetchBreeds, fetchCatByBreed } from "./cat-api";
 
@@ -6,6 +6,7 @@ const selectCatBreed = document.querySelector('.breed-select');
 const loaderWarningText = document.querySelector('.loader');
 const errorWarningText = document.querySelector('.error');
 const containerCatInfo = document.querySelector('.cat-info');
+
 
 selectCatBreed.addEventListener('change', getInformationAbouCat);
 
@@ -18,8 +19,14 @@ function handlerGetCatInfromation() {
 
     fetchBreeds()
         .then(breeds => {
-                selectCatBreed.innerHTML = markupOptions(breeds);
-                selectCatBreed.style.display = 'block';
+            selectCatBreed.innerHTML = markupOptions(breeds);
+            selectCatBreed.style.display = 'block';
+            new SlimSelect({
+                select: selectCatBreed,
+                settings: {
+                    openPosition: 'down'
+                }
+            });
         })
         .catch(() => {
             Notify.failure(errorWarningText.textContent);
@@ -38,9 +45,9 @@ function getInformationAbouCat(event) {
 
     fetchCatByBreed(event.target.value)
         .then(catInfo => {
-            console.log(catInfo.url);
+            // console.log(catInfo.url);
             let { name, description, temperament } = catInfo.breeds[0];
-            let { src } = catInfo.url;
+            let src = catInfo.url;
 
             containerCatInfo.innerHTML = markupCatInformation({ name, description, temperament, src });
 
